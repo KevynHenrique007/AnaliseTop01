@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil Pessoal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .header, .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .profile {
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .profile img {
+            max-width: 150px;
+            border-radius: 50%;
+        }
+        .profile h1, .profile p {
+            margin: 10px 0;
+        }
+        .social-links a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .social-links a:hover {
+            color: #0073e6;
+        }
+        .edit-form {
+            display: none;
+            background-color: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .edit-form input, .edit-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .edit-form button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .edit-form button:hover {
+            background-color: #0073e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Meu Perfil Pessoal</h1>
+    </div>
+    <div class="container">
+        <div class="profile">
+            <img src="Imagem de perfil da Tela de Perfil Pessoal.jpeg" alt="Foto de Perfil">
+            <h1 id="profile-name">JordanBlack</h1>
+            <p id="profile-profession">Pró Player🎮.</p>
+            <p><strong>Bio</strong></p>
+            <p id="profile-bio">Gamer trabalhando, favor respeitar minhas horas de trabalho.</p>
+            <button onclick="toggleEditForm()">Editar Perfil</button>
+        </div>
+        <div class="edit-form" id="edit-form">
+            <h2>Editar Perfil</h2>
+            <form onsubmit="updateProfile(event)">
+                <label for="name">Nome:</label>
+                <input type="text" id="name" value="JordanBlack">
+                <label for="profession">Profissão:</label>
+                <input type="text" id="profession" value="Pró Player🎮.">
+                <label for="bio">Bio:</label>
+                <textarea id="bio">Gamer trabalhando, favor respeitar minhas horas de trabalho.</textarea>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+    </div>
+    <script>
+        function toggleEditForm() {
+            var form = document.getElementById('edit-form');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+            } else {
+                form.style.display = 'none';
+            }
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            var name = document.getElementById('name').value;
+            var profession = document.getElementById('profession').value;
+            var bio = document.getElementById('bio').value;
+
+            document.getElementById('profile-name').textContent = name;
+            document.getElementById('profile-profession').textContent = profession;
+            document.getElementById('profile-bio').textContent = bio;
+
+            toggleEditForm();
+        }
+    </script>
+</body>
+</html>
