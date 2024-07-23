@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed de Notícias de Jogos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .feed, .new-post {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+        .post:last-child {
+            border-bottom: none;
+        }
+        .post img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .post .details {
+            flex: 1;
+            text-align: center;
+        }
+        .post .user {
+            font-weight: bold;
+        }
+        .post .time {
+            color: #777;
+            font-size: 0.9em;
+        }
+        .post .content {
+            margin-top: 5px;
+        }
+        .post .game {
+            color: #4CAF50;
+        }
+        .new-post textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .new-post button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .new-post button:hover {
+            background-color: #45a049;
+        }
+        .like-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .like-button:hover {
+            background-color: #45a049;
+        }
+        .like-count {
+            font-size: 0.9em;
+            color: #777;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Feed de Notícias de Jogos</h1>
+    </div>
+    <div class="container">
+        <div class="new-post">
+            <h2>Criar Nova Postagem</h2>
+            <form id="postForm">
+                <textarea id="postContent" rows="4" placeholder="Compartilhe algo sobre jogos..."></textarea>
+                <button type="submit">Postar</button>
+            </form>
+        </div>
+        <div class="feed" id="feed">
+            <div class="post">
+                <img src="Foto de Perfil 02.jpeg" alt="Carlos Ferreira">
+                <div class="details">
+                    <div class="user">Carlos Ferreira</div>
+                    <div class="time">1 hora atrás</div>
+                    <div class="content">
+                        Acabei de comprar o passe do <span class="game">Call Of Duty</span>! 🎮
+                    </div>
+                    <button class="like-button">Curtir</button>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+            <div class="post">
+                <img src="Foto de Perfil 04.webp" alt="Ana Clara">
+                <div class="details">
+                    <div class="user">Ana Clara</div>
+                    <div class="time">2 horas atrás</div>
+                    <div class="content">
+                        Consegui a vitória na minha primeira partida de <span class="game">Fortnite</span>! 🏆
+                    </div>
+                    <button class="like-button">Curtir</button>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+            <div class="post">
+                <img src="Foto de  Perfil 01.jpg" alt="Lucas Gomes">
+                <div class="details">
+                    <div class="user">Lucas Gomes</div>
+                    <div class="time">3 horas atrás</div>
+                    <div class="content">
+                        Jogando <span class="game">Minecraft</span> com os amigos. Construímos uma fortaleza incrível!
+                    </div>
+                    <button class="like-button">Curtir</button>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+            <div class="post">
+                <img src="Foto de Perfil 04.jpeg" alt="Mariana Lima">
+                <div class="details">
+                    <div class="user">Mariana Lima</div>
+                    <div class="time">5 horas atrás</div>
+                    <div class="content">
+                        Nova atualização de <span class="game">League of Legends</span> está incrível. Mal posso esperar para experimentar as novas skins.
+                    </div>
+                    <button class="like-button">Curtir</button>
+                    <span class="like-count">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const content = document.getElementById('postContent').value;
+            if (content) {
+                const newPost = document.createElement('div');
+                newPost.classList.add('post');
+                newPost.innerHTML = `
+                    <img src="images/default.jpg" alt="Default User">
+                    <div class="details">
+                        <div class="user">Você</div>
+                        <div class="time">Agora</div>
+                        <div class="content">${content}</div>
+                        <button class="like-button">Curtir</button>
+                        <span class="like-count">0</span>
+                    </div>
+                `;
+                document.getElementById('feed').prepend(newPost);
+                document.getElementById('postContent').value = '';
+                addLikeFunctionality(newPost);
+            }
+        });
+
+        function addLikeFunctionality(postElement) {
+            const likeButton = postElement.querySelector('.like-button');
+            const likeCount = postElement.querySelector('.like-count');
+            
+            likeButton.addEventListener('click', function() {
+                let count = parseInt(likeCount.textContent);
+                count++;
+                likeCount.textContent = count;
+            });
+        }
+
+        document.querySelectorAll('.post').forEach(addLikeFunctionality);
+    </script>
+</body>
+</html>
