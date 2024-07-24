@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Conversas Recentes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .conversation-list {
+            margin-top: 20px;
+        }
+        .conversation {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .conversation:hover {
+            background-color: #f9f9f9;
+        }
+        .conversation .conversation-info {
+            display: flex;
+            align-items: center;
+        }
+        .conversation .conversation-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .conversation .conversation-info .conversation-name {
+            font-weight: bold;
+        }
+        .conversation .conversation-info .conversation-preview {
+            color: #777;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Minhas Conversas Recentes</h2>
+        
+        <div class="conversation-list">
+            <!-- Exemplo de uma conversa -->
+            <div class="conversation" onclick="abrirConversa('Cleiton')">
+                <div class="conversation-info">
+                    <img src="Foto de Perfil 02.jpeg" alt="Foto do Cleiton">
+                    <div>
+                        <div class="conversation-name">Cleiton</div>
+                        <div class="conversation-preview">Olá, tudo bem?</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exemplo de outra conversa -->
+            <div class="conversation" onclick="abrirConversa('Julia')">
+                <div class="conversation-info">
+                    <img src="Foto de Perfil 04.jpeg" alt="Foto da Julia">
+                    <div>
+                        <div class="conversation-name">Julia</div>
+                        <div class="conversation-preview">Vamos jogar hoje à noite?</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Adicione mais divs .conversation conforme necessário para cada conversa -->
+            
+        </div>
+    </div>
+
+    <script>
+        function abrirConversa(nome) {
+            alert("Abrindo conversa com " + nome + "...");
+            // Aqui você pode adicionar a lógica para abrir a conversa real, como redirecionar para uma página de mensagens ou carregar mensagens em um chat.
+        }
+    </script>
+</body>
+</html>
