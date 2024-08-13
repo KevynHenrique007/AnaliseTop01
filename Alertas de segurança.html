@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas de Segurança</title>
+</head>
+<body>
+    <h1>Configurações de Alertas de Segurança</h1>
+    
+    <form id="alertSettingsForm">
+        <label for="emailNotifications">
+            <input type="checkbox" id="emailNotifications" name="emailNotifications" checked>
+            Receber alertas por e-mail
+        </label>
+        <br>
+        <label for="smsNotifications">
+            <input type="checkbox" id="smsNotifications" name="smsNotifications">
+            Receber alertas por SMS
+        </label>
+        <br>
+        <button type="submit">Salvar Configurações</button>
+    </form>
+
+    <h2>Alertas Recentes</h2>
+    <ul id="alertsList">
+        <!-- Lista de alertas será carregada aqui -->
+    </ul>
+
+    <script>
+        document.getElementById('alertSettingsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Coleta os dados do formulário
+            const emailNotifications = document.getElementById('emailNotifications').checked;
+            const smsNotifications = document.getElementById('smsNotifications').checked;
+
+            // Envia a configuração para o backend
+            fetch('/update-alert-settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    emailNotifications,
+                    smsNotifications
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Configurações atualizadas com sucesso.');
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        // Função para carregar os alertas recentes
+        function loadAlerts() {
+            fetch('/get-recent-alerts')
+                .then(response => response.json())
+                .then(data => {
+                    const alertsList = document.getElementById('alertsList');
+                    alertsList.innerHTML = '';
+                    data.alerts.forEach(alert => {
+                        const li = document.createElement('li');
+                        li.textContent = alert.message;
+                        alertsList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error('Erro:', error);
+                });
+        }
+
+        // Carrega os alertas ao iniciar a página
+        loadAlerts();
+    </script>
+</body>
+</html>
