@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desativar Conta</title>
+</head>
+<body>
+    <h1>Desativar Conta</h1>
+    <form id="deactivateForm" action="/deactivate-account" method="POST">
+        <p>Você tem certeza de que deseja desativar sua conta?</p>
+        <button type="submit">Desativar Conta</button>
+    </form>
+    
+    <script>
+        document.getElementById('deactivateForm').addEventListener('submit', function(event) {
+            if (!confirm('Tem certeza de que deseja desativar sua conta?')) {
+                event.preventDefault(); // Impede o envio do formulário se o usuário não confirmar
+            }
+        });
+    </script>
+</body>
+</html>
