@@ -72,13 +72,22 @@
             font-weight: bold;
             color: #333;
         }
+        #alertsList {
+            list-style-type: none;
+            padding: 0;
+        }
+        #alertsList li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Configurações</h1>
-        <form>
-            <!-- Configurações do Jogo -->
+        
+        <!-- Configurações do Jogo -->
+        <form id="gameSettingsForm">
             <fieldset>
                 <legend>Configurações do Jogo</legend>
                 <div class="form-group">
@@ -158,6 +167,72 @@
                 <button type="submit" class="btn">Salvar Configurações</button>
             </div>
         </form>
+
+        <!-- Configurações de Alertas de Segurança -->
+        <h2>Configurações de Alertas de Segurança</h2>
+        <form id="alertSettingsForm">
+            <div class="form-group">
+                <label for="emailAlerts">
+                    <input type="checkbox" id="emailAlerts" name="emailAlerts" checked>
+                    Receber alertas por e-mail
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="smsAlerts">
+                    <input type="checkbox" id="smsAlerts" name="smsAlerts">
+                    Receber alertas por SMS
+                </label>
+            </div>
+            <div class="form-group">
+            </div>
+        </form>
+
+        <h2>Alertas Recentes</h2>
+        <ul id="alertsList">
+            <!-- Lista de alertas será carregada aqui -->
+        </ul>
     </div>
-</body>
-</html>
+
+    <script>
+        document.getElementById('alertSettingsForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Coleta os dados do formulário
+            const emailAlerts = document.getElementById('emailAlerts').checked;
+            const smsAlerts = document.getElementById('smsAlerts').checked;
+
+            // Envia a configuração para o backend
+            fetch('/update-alert-settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    emailAlerts,
+                    smsAlerts
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Configurações de alertas atualizadas com sucesso.');
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        // Função para carregar os alertas recentes
+        function loadAlerts() {
+            fetch('/get-recent-alerts')
+                then(response => response.json()) }
+                then(data => {
+                    const alertsList = document.getElementById('alertsList');
+                    alertsList.innerHTML = '';
+                    data.alerts.forEach(alert => {
+                        const li = document.createElement('li');
+                        li.textContent = alert.message;
+                        alertsList.appendChild(li);
+                    });
+                })
+                .catch(error => 
+                    console.error )
