@@ -35,13 +35,16 @@
         .profile h1, .profile p {
             margin: 10px 0;
         }
-        .social-links a {
-            margin: 0 10px;
-            text-decoration: none;
-            color: #333;
+        .profile button {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
         }
-        .social-links a:hover {
-            color: #0073e6;
+        .profile button:hover {
+            background-color: #0073e6;
         }
         .edit-form {
             display: none;
@@ -65,6 +68,30 @@
         .edit-form button:hover {
             background-color: #0073e6;
         }
+        .profile-actions {
+            margin-top: 20px;
+        }
+        .deactivate-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .deactivate-modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .deactivate-modal button {
+            margin: 10px;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +105,12 @@
             <p id="profile-profession">Pró Player🎮.</p>
             <p><strong>Bio</strong></p>
             <p id="profile-bio">Gamer trabalhando, favor respeitar minhas horas de trabalho.</p>
-            <button onclick="toggleEditForm()">Editar Perfil</button>
+            <div class="profile-actions">
+                <button onclick="toggleEditForm()">Editar Perfil</button>
+                <button onclick="window.location.href='Lista de Amigos.html'">Amigos</button>
+                <button onclick="window.location.href='Botão para configuração.html'">Configurações</button>
+                <button onclick="showDeactivateModal()">Desativar Conta</button>
+            </div>
         </div>
         <div class="edit-form" id="edit-form">
             <h2>Editar Perfil</h2>
@@ -91,6 +123,14 @@
                 <textarea id="bio">Gamer trabalhando, favor respeitar minhas horas de trabalho.</textarea>
                 <button type="submit">Salvar</button>
             </form>
+        </div>
+    </div>
+    <div class="deactivate-modal" id="deactivate-modal">
+        <div class="deactivate-modal-content">
+            <h2>Confirmar Desativação</h2>
+            <p>Você tem certeza que deseja desativar sua conta? Esta ação não pode ser desfeita.</p>
+            <button onclick="deactivateAccount()">Sim, desativar</button>
+            <button onclick="closeDeactivateModal()">Cancelar</button>
         </div>
     </div>
     <div class="footer">
@@ -116,6 +156,20 @@
             document.getElementById('profile-bio').textContent = bio;
 
             toggleEditForm();
+        }
+
+        function showDeactivateModal() {
+            document.getElementById('deactivate-modal').style.display = 'flex';
+        }
+
+        function closeDeactivateModal() {
+            document.getElementById('deactivate-modal').style.display = 'none';
+        }
+
+        function deactivateAccount() {
+            // Implement your deactivation logic here
+            alert('Conta desativada!');
+            closeDeactivateModal();
         }
     </script>
 </body>
