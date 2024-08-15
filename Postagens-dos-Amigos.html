@@ -10,6 +10,7 @@
             background-color: #f2f2f2;
             margin: 0;
             padding: 0;
+            position: relative; /* Necessário para posicionar o botão no canto */
         }
         .header {
             background-color: #333;
@@ -21,6 +22,27 @@
             width: 80%;
             margin: auto;
             overflow: hidden;
+        }
+        .profile-highlight {
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .profile-highlight img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+        .profile-highlight .user-name {
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .profile-highlight .game {
+            color: #4CAF50;
         }
         .feed, .new-post {
             margin: 20px 0;
@@ -80,22 +102,49 @@
         .new-post button:hover {
             background-color: #45a049;
         }
-        .like-button {
+        .like-button, .share-button, .comment-button {
             background-color: #4CAF50;
             color: white;
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 10px;
+            margin: 5px;
         }
-        .like-button:hover {
+        .like-button:hover, .share-button:hover, .comment-button:hover {
             background-color: #45a049;
         }
         .like-count {
             font-size: 0.9em;
             color: #777;
             margin-top: 5px;
+        }
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .bottom-right-image {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 50px; /* ajuste o tamanho conforme necessário */
+            height: auto;
+            cursor: pointer;
+        }
+        .notification {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -104,6 +153,14 @@
         <h1>Feed de Notícias de Jogos</h1>
     </div>
     <div class="container">
+        <!-- Seção de Perfil em Destaque -->
+        <div class="profile-highlight">
+            <img src="Imagem de Perfil do Alanzoka.jpeg" alt="Perfil em Destaque">
+            <div class="user-name">Alanzoka</div>
+            <p>Jogando <span class="game">Red Dead Redemption 2</span>. Confira suas conquistas e dicas!</p>
+            <a href="Ex-de-Perfil-Público.html" class="comment-button">Ver Perfil</a>
+        </div>
+        
         <div class="new-post">
             <h2>Criar Nova Postagem</h2>
             <form id="postForm">
@@ -113,14 +170,17 @@
         </div>
         <div class="feed" id="feed">
             <div class="post">
-                <img src="Foto de Perfil 02.jpeg" alt="Carlos Ferreira">
+                <img src="Foto de Perfil 02.jpeg" alt="Cleiton">
                 <div class="details">
-                    <div class="user">Carlos Ferreira</div>
+                    <div class="user">Cleiton</div>
                     <div class="time">1 hora atrás</div>
                     <div class="content">
                         Acabei de comprar o passe do <span class="game">Call Of Duty</span>! 🎮
                     </div>
-                    <button class="like-button">Curtir</button>
+                    <div class="buttons-container">
+                        <button class="like-button">Curtir</button>
+                        <a href="Minhas conversas.html" class="comment-button">Mensagem</a>
+                    </div>
                     <span class="like-count">0</span>
                 </div>
             </div>
@@ -132,7 +192,11 @@
                     <div class="content">
                         Consegui a vitória na minha primeira partida de <span class="game">Fortnite</span>! 🏆
                     </div>
-                    <button class="like-button">Curtir</button>
+                    <div class="buttons-container">
+                        <button class="like-button">Curtir</button>
+                        <button class="share-button">Adicionar</button>
+                        <a href="Minhas conversas.html" class="comment-button">Mensagem</a>
+                    </div>
                     <span class="like-count">0</span>
                 </div>
             </div>
@@ -144,24 +208,35 @@
                     <div class="content">
                         Jogando <span class="game">Minecraft</span> com os amigos. Construímos uma fortaleza incrível!
                     </div>
-                    <button class="like-button">Curtir</button>
+                    <div class="buttons-container">
+                        <button class="like-button">Curtir</button>
+                        <button class="share-button">Adicionar</button>
+                        <a href="Minhas conversas.html" class="comment-button">Mensagem</a>
+                    </div>
                     <span class="like-count">0</span>
                 </div>
             </div>
             <div class="post">
-                <img src="Foto de Perfil 04.jpeg" alt="Mariana Lima">
+                <img src="Foto de Perfil 04.jpeg" alt="Julia">
                 <div class="details">
-                    <div class="user">Mariana Lima</div>
+                    <div class="user">Julia</div>
                     <div class="time">5 horas atrás</div>
                     <div class="content">
                         Nova atualização de <span class="game">League of Legends</span> está incrível. Mal posso esperar para experimentar as novas skins.
                     </div>
-                    <button class="like-button">Curtir</button>
+                    <div class="buttons-container">
+                        <button class="like-button">Curtir</button>
+                        <a href="Minhas conversas.html" class="comment-button">Mensagem</a>
+                    </div>
                     <span class="like-count">0</span>
                 </div>
             </div>
         </div>
     </div>
+
+    <img src="Imagem de perfil da Tela de Perfil Pessoal.jpeg" alt="Botão" class="bottom-right-image" onclick="window.location.href='Botão-de-Editar-Perfil.html';">
+
+    <div class="notification" id="notification">Nova postagem adicionada!</div>
 
     <script>
         document.getElementById('postForm').addEventListener('submit', function(event) {
@@ -176,28 +251,43 @@
                         <div class="user">Você</div>
                         <div class="time">Agora</div>
                         <div class="content">${content}</div>
-                        <button class="like-button">Curtir</button>
+                        <div class="buttons-container">
+                            <button class="like-button">Curtir</button>
+                            <button class="share-button">Compartilhar</button>
+                            <a href="Minhas conversas.html" class="comment-button">Mensagem</a>
+                        </div>
                         <span class="like-count">0</span>
                     </div>
                 `;
                 document.getElementById('feed').prepend(newPost);
                 document.getElementById('postContent').value = '';
                 addLikeFunctionality(newPost);
+                showNotification('Nova postagem adicionada!');
             }
         });
 
         function addLikeFunctionality(postElement) {
             const likeButton = postElement.querySelector('.like-button');
-            const likeCount = postElement.querySelector('.like-count');
-            
             likeButton.addEventListener('click', function() {
-                let count = parseInt(likeCount.textContent);
-                count++;
-                likeCount.textContent = count;
+                const likeCount = postElement.querySelector('.like-count');
+                likeCount.textContent = parseInt(likeCount.textContent) + 1;
             });
         }
 
-        document.querySelectorAll('.post').forEach(addLikeFunctionality);
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.opacity = 1;
+                setTimeout(() => {
+                    notification.style.opacity = 0;
+                    setTimeout(() => {
+                        notification.style.display = 'none';
+                    }, 500);
+                }, 2000);
+            }, 100);
+        }
     </script>
 </body>
 </html>
